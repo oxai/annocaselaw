@@ -1,0 +1,118 @@
+You are identifying relevant precedents in a judicial opinion in a
+civil negligence case.
+
+Read the entire supplied opinion and select the relevant prior cases
+from the numbered candidate list.
+
+Base your selection only on how the supplied opinion uses each case.
+Do not use external sources or select a case merely because you
+recognize its name.
+
+SCOPE
+
+The Relevant Issues are:
+1. The existence or scope of a duty of care.
+2. Breach of that duty: whether the defendant was negligent.
+3. Contributory negligence: whether the claimant was negligent.
+
+Procedural History, Application of Law to Facts, and Relevant Precedents
+are restricted to these Relevant Issues. These restrictions do not
+exclude Facts about other issues or the court's Outcome.
+
+Discussion solely about causation or damages is outside that scope.
+Discussion that merely concerns whether a state entity is immune under
+a Tort Claims Act is also outside that scope.
+
+Special liability regimes, including occupiers' liability, employers'
+liability, strict liability, and workers' compensation, are within scope
+only where the court reasons in terms generalizable to common-law
+negligence. State-specific law does not by itself exclude a passage:
+include it where it concerns duty or breach.
+
+Property-damage cases are within scope where they turn on the same
+negligence elements as physical-injury cases and do not concern pure
+economic loss.
+
+A passage addressing a Relevant Issue together with an excluded issue
+is not excluded merely because it mentions the excluded issue.
+
+Annotate only the supplied majority opinion. Do not annotate a dissent
+or separate concurrence.
+
+APPLICATION OF LAW TO FACTS
+
+Application of Law to Facts consists of the minimum necessary statements
+of the court's application of law to facts to reach its decision on a
+Relevant Issue. It excludes discussion of points not necessary to the
+conclusion.
+
+It includes contextual statements that help explain the application of
+law to facts, and judicial cues indicating that the court is applying
+the law.
+
+It includes discussion of whether evidence has probative value on duty
+or breach when that discussion signals the court's reasoning on those
+issues.
+
+Where an excerpt of witness testimony is necessary to give proper
+meaning to the court's application of law to facts on a point, that
+excerpt belongs to Application of Law to Facts rather than Facts.
+
+For contributory negligence, it includes the court's determination of
+whether the claimant was negligent and any percentage of contribution.
+It excludes discussion solely about whether the claimant's negligence
+caused the injury or how damages should be reduced.
+
+Merely reporting a party's argument does not by itself constitute
+Application of Law to Facts. Such material qualifies only where it
+forms part of the court's own analysis or provides context necessary
+to explain that analysis.
+
+RELEVANT PRECEDENTS
+
+The relevant precedents are the prior cases referred to by the court
+that are salient to its Application of Law to Facts in this opinion,
+as defined above.
+
+The scope of Relevant Precedents follows the scope of Application of
+Law to Facts.
+
+Exclude cases cited only:
+- By way of background.
+- For the standard of review.
+- In relation to issues that are not determinative.
+- In the procedural history: a case named in the procedural recital is
+  not thereby a relevant precedent.
+
+Consider all uses of a candidate throughout the opinion. A case cited
+for an excluded purpose in one passage may still qualify if it is
+salient to the court's Application of Law to Facts elsewhere.
+
+Each candidate represents one distinct prior case. Full citations,
+short-form references, and attributable "id." or "supra" references
+to that case belong to the same candidate.
+
+This task covers prior cases only. Do not select or add statutes,
+regulations, Restatement sections, or treatises.
+
+OUTPUT
+
+Return only a valid JSON object with exactly this key:
+{
+  "relevant": []
+}
+
+The array must contain the integer IDs of the selected candidates in
+ascending order. Use only IDs present in the supplied candidate list.
+Do not repeat IDs.
+Use an empty array when no candidate qualifies.
+Do not include sentence annotations, relevance scores, explanations,
+quotations, or Markdown formatting.
+
+OPINION
+
+{{CLEANED_OPINION}}
+
+CANDIDATE CASES
+
+{{NUMBERED_CANDIDATES}}

@@ -1,0 +1,126 @@
+# Models and settings used in the paper, in the order of Table 1.
+#
+# Keys are the exact identifiers sent to the endpoint: DigitalOcean model names for
+# API models, Hugging Face repositories for open weights. `request` is sent unchanged
+# with every chat request. API models need DO_MODEL_ACCESS_KEY. Open-weight models are
+# served with vLLM 0.29.0 in a separate environment, e.g.
+#   vllm serve thomsonreuters/Thomson-1.0-Small --revision <revision> --max-model-len <context>
+# and their output cap is reduced when needed so that input and output fit in `context`.
+
+# Generative models
+
+anthropic-claude-opus-5:
+  name: Claude Opus 5
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  endpoint: messages  # Anthropic-style /messages rather than /chat/completions
+  request: {max_tokens: 32768, reasoning_effort: high, thinking: {type: adaptive}, speed: standard}
+
+openai-gpt-5.6-sol:
+  name: GPT-5.6 Sol
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  request: {max_completion_tokens: 32768, reasoning_effort: high}
+
+qwen3.8-max:
+  name: Qwen3.8 Max
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  request: {temperature: 0, max_tokens: 32768}
+
+kimi-k3:
+  name: Kimi K3
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  request: {temperature: 1, max_tokens: 32768, reasoning_effort: high}
+
+deepseek-v4-pro:
+  name: DeepSeek V4 Pro
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  request: {temperature: 0, max_tokens: 32768}
+
+gemma-4-31B-it:
+  name: Gemma 4 31B
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  request: {temperature: 0, max_tokens: 8192}
+  yes_no_request: {temperature: 0, max_tokens: 16}  # appendix control: generate.py --yes-no
+
+thomsonreuters/Thomson-1.0-Small:
+  name: Thomson 1.0 Small
+  revision: 6f58dd819061240192285228e8c0ffcffd0fc665
+  base_url: http://localhost:8000/v1
+  context: 98304
+  request: {temperature: 1.0, top_p: 0.95, top_k: 20, max_tokens: 65536,
+            chat_template_kwargs: {enable_thinking: true}}
+
+tri-fair-lab/Snowdon1.1-Small:
+  name: Snowdon 1.1 Small
+  revision: 3e3936f24671a444516a41cb9dbb10cc71e09c9d
+  base_url: http://localhost:8000/v1
+  context: 98304
+  request: {temperature: 1.0, top_p: 0.95, top_k: 20, repetition_penalty: 1.0, max_tokens: 65536,
+            stop_token_ids: [248046, 248044], chat_template_kwargs: {enable_thinking: true}}
+
+Equall/SaulLM-54B-Instruct:
+  name: SaulLM 54B
+  revision: cb41c48a180a0a4c0d18a20808c395d0485c741f
+  base_url: http://localhost:8000/v1
+  context: 32768
+  request: {temperature: 1.0, top_p: 1.0, top_k: 50, max_tokens: 16384}
+
+mistral-3-14B:
+  name: Ministral 3 14B
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  request: {temperature: 0, max_tokens: 8192}
+
+nemotron-nano-12b-v2-vl:
+  name: Nemotron Nano 12B
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+  system: >-
+    You have no tools. Answer the user's task directly. Return only the JSON object
+    requested by the user. Do not write tool calls or XML tags.
+  request: {temperature: 0.6, top_p: 0.95, max_tokens: 16384}
+
+ShengbinYue/LawLLM-7B:
+  name: DISC-LawLLM 7B
+  revision: abc510f9f5f8be2676c13f7786c78d775496f857
+  base_url: http://localhost:8000/v1
+  context: 32768
+  system: 你是LawLLM，一个由复旦大学DISC实验室创造的法律助手。  # the authors' system message
+  grammar: true  # constrain output to the requested JSON of ascending IDs
+  request: {temperature: 0.1, top_p: 0.9, top_k: 50, repetition_penalty: 1.0, max_tokens: 16384,
+            stop_token_ids: [151645, 151643]}
+
+# Decision models
+
+typesafe-jev-1.13.0:
+  name: Jev
+  backend: systemone
+  base_url: https://inference.do-ai.run/v1
+  api_key_env: DO_MODEL_ACCESS_KEY
+
+jaredpalmer/kev-27b:
+  name: Kev 27B
+  backend: systemone
+  revision: af0e6d551bdc2cc724f3e9d7a8bee1cd4fb8f7bf
+  # Kev's own server, from github.com/jaredpalmer/kev at 5e42a7a03f28:
+  #   KEV_DTYPE=bf16 KEV_TRUNCATE_STATES=0 KEV_DATE_FACTS=0 python -m kev.serve \
+  #     --run jaredpalmer/kev-27b@af0e6d551bdc2cc724f3e9d7a8bee1cd4fb8f7bf --port 8008
+  base_url: http://localhost:8008/v1
+  served_as: kev-latest
+
+# Clef runs locally on one 80 GB GPU: uv sync --group clef
+
+Cloudflare/clef:
+  name: Clef 27B
+  backend: clef
+  revision: 0b331204bb13fbd2ca93a64df1956f5b55478ce5
+
+Cloudflare/clef-flash:
+  name: Clef Flash 9B
+  backend: clef
+  revision: 8b2e5fd17c09fd49bc2880b805d5323ec7ff4ff3

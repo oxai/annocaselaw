@@ -1,0 +1,13 @@
+[project]
+name = "annocaselaw"
+version = "1.0.0"
+description = "Run and score models on the AnnoCaseLaw benchmark"
+requires-python = ">=3.11"
+dependencies = ["datasets>=3.0", "httpx>=0.27", "numpy>=1.26", "pyyaml>=6.0"]
+
+[dependency-groups]
+# Local Clef inference (one 80 GB GPU), with the versions used in the paper.
+clef = ["torch==2.8.0", "transformers==5.17.0", "accelerate>=1.0", "safetensors>=0.4", "huggingface-hub>=0.34"]
+
+[tool.uv]
+package = false

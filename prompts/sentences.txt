@@ -1,0 +1,147 @@
+You are annotating a judicial opinion in a civil negligence case.
+
+Read the entire supplied opinion. Each sentence is prefixed with its
+integer ID in square brackets. Select the sentences belonging to these
+four categories:
+- Facts
+- Procedural History
+- Application of Law to Facts
+- Outcome
+
+Select every category that applies to a sentence. Different portions
+of one sentence may qualify for different categories. Leave sentences
+that do not qualify for any category unlabeled. Base your annotations
+only on the supplied opinion. Do not use external sources or infer
+unstated facts.
+
+SCOPE
+
+The Relevant Issues are:
+1. The existence or scope of a duty of care.
+2. Breach of that duty: whether the defendant was negligent.
+3. Contributory negligence: whether the claimant was negligent.
+
+Procedural History and Application of Law to Facts are restricted to
+these Relevant Issues. These restrictions do not exclude Facts about
+other issues or the court's Outcome.
+
+Discussion solely about causation or damages is outside that scope.
+Discussion that merely concerns whether a state entity is immune under
+a Tort Claims Act is also outside that scope.
+
+Special liability regimes, including occupiers' liability, employers'
+liability, strict liability, and workers' compensation, are within scope
+only where the court reasons in terms generalizable to common-law
+negligence. State-specific law does not by itself exclude a passage:
+include it where it concerns duty or breach.
+
+Property-damage cases are within scope where they turn on the same
+negligence elements as physical-injury cases and do not concern pure
+economic loss.
+
+A passage addressing a Relevant Issue together with an excluded issue
+is not excluded merely because it mentions the excluded issue.
+
+Annotate only the supplied majority opinion. Do not annotate a dissent
+or separate concurrence.
+
+FACTS
+
+Events and circumstances that happened before the litigation began,
+including:
+- The events alleged to give rise to the claim.
+- Facts accepted or assumed by the court for its reasoning, including
+  conceded facts; they need not have been conclusively established.
+- Background about a party's history, behavior, or practices.
+- Facts concerning issues outside the Relevant Issues.
+- New factual information recounted within the court's reasoning.
+
+Annotate Facts comprehensively, wherever they appear.
+
+Witness testimony relied on by the court is treated as Facts. Where
+the court recounts testimony or states that "the evidence establishes"
+something, the recounted content is Facts; the introductory phrase is
+not separately relevant.
+
+Where witnesses disagree and the court clearly relies on the account
+supported by the majority of witnesses, do not annotate the conflicting
+minority account as Facts.
+
+Do not annotate evidence that the court rules inadmissible and does not
+rely on as Facts. The testimony exception in the Application of Law to
+Facts definition below takes precedence where it applies.
+
+PROCEDURAL HISTORY
+
+Statements about:
+- The procedural status of the case.
+- What happened in the proceedings below.
+- The lower court's reasons for its decision, where given.
+- The standard of review applied by the present court.
+
+Select these only where they relate to a Relevant Issue.
+
+Descriptions of claims against persons who are not parties to the
+present case are not Procedural History for this task.
+
+APPLICATION OF LAW TO FACTS
+
+Application of Law to Facts consists of the minimum necessary statements
+of the court's application of law to facts to reach its decision on a
+Relevant Issue. It excludes discussion of points not necessary to the
+conclusion.
+
+It includes contextual statements that help explain the application of
+law to facts, and judicial cues indicating that the court is applying
+the law.
+
+It includes discussion of whether evidence has probative value on duty
+or breach when that discussion signals the court's reasoning on those
+issues.
+
+Where an excerpt of witness testimony is necessary to give proper
+meaning to the court's application of law to facts on a point, that
+excerpt belongs to Application of Law to Facts rather than Facts.
+
+For contributory negligence, it includes the court's determination of
+whether the claimant was negligent and any percentage of contribution.
+It excludes discussion solely about whether the claimant's negligence
+caused the injury or how damages should be reduced.
+
+Merely reporting a party's argument does not by itself constitute
+Application of Law to Facts. Such material qualifies only where it
+forms part of the court's own analysis or provides context necessary
+to explain that analysis.
+
+OUTCOME
+
+The present court's explicit statement of its outcome, such as finding
+for a party, affirming, reversing, remanding, dismissing, modifying, or
+otherwise disposing of the case or a claim.
+
+Select the court's statement of the outcome. You may select multiple
+statements where the outcome appears more than once.
+
+A description of the lower court's disposition belongs to Procedural
+History when that definition applies.
+
+OUTPUT
+
+Return only a valid JSON object with exactly these four keys:
+{
+  "Facts": [],
+  "Procedural History": [],
+  "Application of Law to Facts": [],
+  "Outcome": []
+}
+
+Each array must contain the integer IDs of the selected sentences in
+ascending order. Use only IDs present in the supplied opinion.
+Do not repeat an ID within an array. An ID may appear in multiple
+category arrays when the sentence qualifies for each category.
+Use an empty array when no sentence qualifies for a category.
+Do not include explanations, quotations, or Markdown formatting.
+
+OPINION
+
+{{NUMBERED_SENTENCES}}
